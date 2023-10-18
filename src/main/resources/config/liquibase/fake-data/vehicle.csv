@@ -1,0 +1,11 @@
+id;model;make;year;lease_rate;availability_status
+1;Civic;Honda;2020;1500;Available
+2;Model S;Tesla;2021;2500;Available
+3;Mustang;Ford;2019;2000;Rented
+4;Accord;Honda;2018;1400;Available
+5;3 Series;BMW;2021;2200;Rented
+6;Camry;Toyota;2019;1300;Available
+7;Impreza;Subaru;2020;1700;Rented
+8;A4;Audi;2021;2400;Available
+9;Altima;Nissan;2020;1600;Rented
+10;Model 3;Tesla;2021;2300;Available

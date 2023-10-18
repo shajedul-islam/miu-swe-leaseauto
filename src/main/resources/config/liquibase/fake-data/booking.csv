@@ -1,0 +1,11 @@
+id;start_date;end_date;total_cost;location
+1;2023-10-17;2023-10-20;300;Springfield Downtown
+2;2023-10-18;2023-10-21;350;Shelbyville Central
+3;2023-10-19;2023-10-22;280;Ogdenville Airport
+4;2023-10-20;2023-10-25;450;Capital City Mall
+5;2023-10-21;2023-10-24;320;North Haverbrook Station
+6;2023-10-22;2023-10-28;500;Brockway Center
+7;2023-10-23;2023-10-27;480;Sprocketsville Beach
+8;2023-10-24;2023-10-30;550;Cypress Creek Park
+9;2023-10-25;2023-10-29;290;Monstromart Plaza
+10;2023-10-26;2023-10-31;520;Movementarian Resort

@@ -1,0 +1,11 @@
+id;name;email;phone_number;address;driving_license_credentials
+1;John Doe;john.doe@gmail.com;+1234567890;1234 Elm Street, Springfield;D1234567
+2;Jane Smith;jane.smith@yahoo.com;+1234567891;5678 Maple Drive, Shelbyville;D1234568
+3;Michael Johnson;michael.j@hotmail.com;+1234567892;910 Oak Lane, Ogdenville;D1234569
+4;Emily Davis;emily.davis@gmail.com;+1234567893;1112 Pine Avenue, Capital City;D1234570
+5;Robert Wilson;robert.wilson@yahoo.com;+1234567894;1314 Birch Blvd, North Haverbrook;D1234571
+6;Sarah Brown;sarah.brown@hotmail.com;+1234567895;1516 Cedar Street, Brockway;D1234572
+7;David Lee;david.lee@gmail.com;+1234567896;1718 Elm Street, Sprocketsville;D1234573
+8;Laura Rodriguez;laura.r@hotmail.com;+1234567897;1920 Fir Avenue, Cypress Creek;D1234574
+9;Daniel Garcia;daniel.garcia@yahoo.com;+1234567898;2122 Maple Drive, Monstromart;D1234575
+10;Angela Martinez;angela.m@gmail.com;+1234567899;2324 Oak Lane, Movementarian Compound;D1234576

@@ -1,0 +1,45 @@
+entity Vehicle {
+  model String required,
+  make String required,
+  year Integer required,
+  leaseRate BigDecimal required,
+  availabilityStatus String required
+}
+
+entity Customer {
+  name String required,
+  email String required unique,
+  phoneNumber String,
+  address String,
+  drivingLicenseCredentials String required
+}
+
+entity Booking {
+  startDate LocalDate required,
+  endDate LocalDate required,
+  totalCost BigDecimal,
+  location String
+}
+
+entity Invoice {
+  totalAmount BigDecimal required,
+  paymentStatus String required,
+  dueDate LocalDate
+}
+
+// Define relationships
+relationship OneToMany {
+  Customer to Booking,
+  Vehicle to Booking,
+  Customer to Invoice
+}
+
+relationship OneToOne {
+  Booking to Invoice
+}
+
+// Set some pagination options
+paginate Vehicle, Customer, Booking, Invoice with pagination
+
+// Add service options with serviceImpl for interface segregation
+service Vehicle, Customer, Booking, Invoice with serviceImpl
