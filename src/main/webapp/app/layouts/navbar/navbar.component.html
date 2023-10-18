@@ -27,73 +27,47 @@
             </span>
           </a>
         </li>
-        <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+
+        <!-- Vehicle Menu -->
         <li
-          *ngSwitchCase="true"
-          ngbDropdown
-          class="nav-item dropdown pointer"
-          display="dynamic"
+          *jhiHasAnyAuthority="['ROLE_USER', 'ROLE_ADMIN']"
+          class="nav-item"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
-            <span>
-              <fa-icon icon="th-list"></fa-icon>
-              <span>Entities</span>
-            </span>
+          <!--<li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">-->
+          <a class="nav-link" routerLink="vehicle" (click)="collapseNavbar()">
+            <span>Vehicle</span>
           </a>
-          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="vehicle"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span>Vehicle</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="customer"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span>Customer</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="booking"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span>Booking</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="invoice"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span>Invoice</span>
-              </a>
-            </li>
-            <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-          </ul>
         </li>
+
+        <!-- Customer Menu -->
+        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="customer" (click)="collapseNavbar()">
+            <span>Customer</span>
+          </a>
+        </li>
+
+        <!-- Booking Menu -->
+        <li
+          *jhiHasAnyAuthority="['ROLE_USER', 'ROLE_ADMIN']"
+          class="nav-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a class="nav-link" routerLink="booking" (click)="collapseNavbar()">
+            <span>Booking</span>
+          </a>
+        </li>
+
+        <!-- Invoice Menu -->
+        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="invoice" (click)="collapseNavbar()">
+            <span>Invoice</span>
+          </a>
+        </li>
+
+        <!-- Administration Dropdown -->
         <li
           *jhiHasAnyAuthority="'ROLE_ADMIN'"
           ngbDropdown
@@ -145,9 +119,10 @@
                 <span>API</span>
               </a>
             </li>
-            <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
           </ul>
         </li>
+
+        <!-- Account Dropdown -->
         <li
           ngbDropdown
           class="nav-item dropdown pointer"
@@ -189,28 +164,22 @@
                 <span>Password</span>
               </a>
             </li>
+            <li *ngSwitchDefault>
+              <a class="dropdown-item" routerLink="register" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
+                <span>Register</span>
+              </a>
+            </li>
             <li *ngSwitchCase="true">
-              <a class="dropdown-item" (click)="logout()" id="logout" data-cy="logout">
+              <a class="dropdown-item" (click)="logout()" data-cy="logout">
                 <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon>
                 <span>Sign out</span>
               </a>
             </li>
-            <li *ngSwitchCase="false">
-              <a class="dropdown-item" (click)="login()" id="login" data-cy="login">
+            <li *ngSwitchDefault>
+              <a class="dropdown-item" routerLink="login" routerLinkActive="active" (click)="collapseNavbar()" data-cy="loginItem">
                 <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon>
                 <span>Sign in</span>
-              </a>
-            </li>
-            <li *ngSwitchCase="false">
-              <a
-                class="dropdown-item"
-                routerLink="account/register"
-                routerLinkActive="active"
-                (click)="collapseNavbar()"
-                data-cy="register"
-              >
-                <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
-                <span>Register</span>
               </a>
             </li>
           </ul>
