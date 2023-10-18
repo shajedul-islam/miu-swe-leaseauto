@@ -1,54 +1,41 @@
 <div class="row">
-  <div class="col-md-3">
-    <span class="hipster img-fluid rounded"></span>
+  <!-- Vehicle Image or Banner Section -->
+  <div class="col-md-6">
+    <span class="lease-auto-banner img-fluid rounded"></span>
   </div>
 
-  <div class="col-md-9">
-    <h1 class="display-4"><span>Welcome, Java Hipster!</span> (Lease Auto)</h1>
+  <!-- Main Content Section -->
+  <div class="col-md-6">
+    <h1 class="display-4">Welcome to LeaseAuto!</h1>
+    <p class="lead">Find the perfect ride for your journey.</p>
 
-    <p class="lead">This is your homepage</p>
-
+    <!-- User Logged in / Logged out Notifications -->
     <div [ngSwitch]="account !== null">
       <div class="alert alert-success" *ngSwitchCase="true">
-        <span id="home-logged-message" *ngIf="account">You are logged in as user "{{ account.login }}".</span>
+        <span id="home-logged-message" *ngIf="account">Logged in as "{{ account.login }}". Explore our collection!</span>
       </div>
 
-      <div class="alert alert-warning" *ngSwitchCase="false">
-        <span>If you want to </span>
-        <a class="alert-link" (click)="login()">sign in</a
-        ><span
-          >, you can try the default accounts:<br />- Administrator (login="admin" and password="admin") <br />- User (login="user" and
-          password="user").</span
-        >
-      </div>
-
-      <div class="alert alert-warning" *ngSwitchCase="false">
-        <span>You don't have an account yet?</span>&nbsp;
-        <a class="alert-link" routerLink="account/register">Register a new account</a>
+      <div class="alert alert-info" *ngSwitchCase="false">
+        <span>Looking to lease a vehicle? </span>
+        <a class="alert-link" (click)="login()">Sign in</a>
+        <span> or </span>
+        <a class="alert-link" routerLink="account/register">create an account</a>.
       </div>
     </div>
 
-    <p>If you have any question on JHipster:</p>
-
+    <!-- Call to Action -->
+    <p>Why LeaseAuto?</p>
     <ul>
-      <li><a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">JHipster homepage</a></li>
-      <li>
-        <a href="https://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">JHipster on Stack Overflow</a>
-      </li>
-      <li>
-        <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer"
-          >JHipster bug tracker</a
-        >
-      </li>
-      <li>
-        <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">JHipster public chat room</a>
-      </li>
-      <li><a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">follow @jhipster on Twitter</a></li>
+      <li>Wide range of vehicles available.</li>
+      <li>Flexible leasing options.</li>
+      <li>Competitive rates.</li>
+      <li>Easy online booking and confirmation.</li>
+      <li>Excellent customer service.</li>
     </ul>
 
     <p>
-      <span>If you like JHipster, don't forget to give us a star on</span>
-      <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">GitHub</a>!
+      <span>Ready to drive? Browse our </span>
+      <a href="/vehicles" class="btn btn-primary">Vehicle Collection</a>
     </p>
   </div>
 </div>

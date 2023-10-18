@@ -21,3 +21,15 @@ Main page styles
     background-size: contain;
   }
 }
+
+.lease-auto-banner {
+  display: block;
+  width: 100%;
+  background-image: url('../../content/images/lease-auto-banner.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 300px; /* Adjust this height based on your needs */
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
