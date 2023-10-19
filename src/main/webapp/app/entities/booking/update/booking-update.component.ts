@@ -13,6 +13,9 @@ import { ICustomer } from 'app/entities/customer/customer.model';
 import { CustomerService } from 'app/entities/customer/service/customer.service';
 import { IVehicle } from 'app/entities/vehicle/vehicle.model';
 import { VehicleService } from 'app/entities/vehicle/service/vehicle.service';
+import { differenceInDays, parseISO } from 'date-fns';
+import { AccountService } from 'app/core/auth/account.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'jhi-booking-update',
@@ -42,19 +45,47 @@ export class BookingUpdateComponent implements OnInit {
     protected customerService: CustomerService,
     protected vehicleService: VehicleService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
+    protected fb: FormBuilder,
+    protected accountService: AccountService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ booking }) => {
       this.updateForm(booking);
-
       this.loadRelationshipsOptions();
+
+      // Auto select the vehicle if vehicleId is present in the route
+      this.activatedRoute.params.subscribe(params => {
+        const vehicleId = params['vehicleId'];
+        if (vehicleId) {
+          this.vehicleService.find(vehicleId).subscribe(response => {
+            const selectedVehicle: IVehicle = response.body!;
+            this.vehiclesSharedCollection.push(selectedVehicle);
+            this.editForm.patchValue({ vehicle: selectedVehicle });
+          });
+        }
+      });
     });
+
+    // Set the customer as the logged-in user
+    // This assumes you have a method to get the logged-in user. If not, you'll need to implement that.
+    const loggedInUser = this.getLoggedInUser().subscribe(user => {
+      this.editForm.patchValue({ customer: loggedInUser });
+    });
+
+    this.autoCalculateTotalCost();
   }
 
   previousState(): void {
     window.history.back();
+  }
+
+  // This is a placeholder method, you need to implement getting the logged-in user.
+  getLoggedInUser(): Observable<any> {
+    if (this.accountService.isAuthenticated()) {
+      return this.accountService.identity();
+    }
+    return of(null); // or return an observable of some default value if desired
   }
 
   save(): void {
@@ -158,5 +189,33 @@ export class BookingUpdateComponent implements OnInit {
       customer: this.editForm.get(['customer'])!.value,
       vehicle: this.editForm.get(['vehicle'])!.value,
     };
+  }
+
+  private autoCalculateTotalCost(): void {
+    this.editForm.get('startDate')?.valueChanges.subscribe(() => {
+      this.calculateAndSetTotalCost();
+    });
+
+    this.editForm.get('endDate')?.valueChanges.subscribe(() => {
+      this.calculateAndSetTotalCost();
+    });
+
+    this.editForm.get('vehicle')?.valueChanges.subscribe(() => {
+      this.calculateAndSetTotalCost();
+    });
+  }
+
+  private calculateAndSetTotalCost(): void {
+    const startDate = this.editForm.get('startDate')?.value;
+    const endDate = this.editForm.get('endDate')?.value;
+    const vehicle = this.editForm.get('vehicle')?.value;
+
+    if (startDate && endDate && vehicle) {
+      const start = typeof startDate === 'string' ? parseISO(startDate) : startDate;
+      const end = typeof endDate === 'string' ? parseISO(endDate) : endDate;
+      const days = differenceInDays(end, start) + 1;
+      const totalCost = days * vehicle.leaseRate;
+      this.editForm.get('totalCost')?.setValue(totalCost);
+    }
   }
 }

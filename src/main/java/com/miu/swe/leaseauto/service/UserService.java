@@ -2,8 +2,10 @@ package com.miu.swe.leaseauto.service;
 
 import com.miu.swe.leaseauto.config.Constants;
 import com.miu.swe.leaseauto.domain.Authority;
+import com.miu.swe.leaseauto.domain.Customer;
 import com.miu.swe.leaseauto.domain.User;
 import com.miu.swe.leaseauto.repository.AuthorityRepository;
+import com.miu.swe.leaseauto.repository.CustomerRepository;
 import com.miu.swe.leaseauto.repository.UserRepository;
 import com.miu.swe.leaseauto.security.AuthoritiesConstants;
 import com.miu.swe.leaseauto.security.SecurityUtils;
@@ -34,12 +36,20 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private CustomerRepository customerRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+    public UserService(
+        UserRepository userRepository,
+        CustomerRepository customerRepository,
+        PasswordEncoder passwordEncoder,
+        AuthorityRepository authorityRepository
+    ) {
         this.userRepository = userRepository;
+        this.customerRepository = customerRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
     }
@@ -98,10 +108,10 @@ public class UserService {
                     throw new EmailAlreadyUsedException();
                 }
             });
+
         User newUser = new User();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(userDTO.getLogin().toLowerCase());
-        // new user gets initially a generated password
         newUser.setPassword(encryptedPassword);
         newUser.setFirstName(userDTO.getFirstName());
         newUser.setLastName(userDTO.getLastName());
@@ -110,15 +120,28 @@ public class UserService {
         }
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
-        // new user is not active
-        newUser.setActivated(false);
-        // new user gets registration key
+        newUser.setActivated(true);
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
+        authorityRepository.findById(AuthoritiesConstants.CUSTOMER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+
+        // After saving the newUser, let's create the Customer entity
+        Customer newCustomer = new Customer();
+        newCustomer.setId(newUser.getId());
+        newCustomer.setName(userDTO.getName());
+        newCustomer.setEmail(userDTO.getEmail());
+        newCustomer.setPhoneNumber(userDTO.getPhoneNumber()); // If you have the phone number from the userDTO, set it here
+        newCustomer.setAddress(""); // If you have the address from the userDTO, set it here
+        newCustomer.setDrivingLicenseCredentials(userDTO.getDrivingLicenseCredentials()); // Set driving license credentials, modify as per your needs
+
+        // Save the Customer entity to the database
+        customerRepository.save(newCustomer);
+
         log.debug("Created Information for User: {}", newUser);
+        log.debug("Created Information for Customer: {}", newCustomer);
         return newUser;
     }
 

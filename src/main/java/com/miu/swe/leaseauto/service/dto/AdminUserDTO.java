@@ -48,6 +48,40 @@ public class AdminUserDTO {
 
     private Set<String> authorities;
 
+    // New fields
+    @Size(max = 50)
+    private String name;
+
+    @Size(max = 50)
+    private String phoneNumber;
+
+    @Size(max = 255)
+    private String drivingLicenseCredentials;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getDrivingLicenseCredentials() {
+        return drivingLicenseCredentials;
+    }
+
+    public void setDrivingLicenseCredentials(String drivingLicenseCredentials) {
+        this.drivingLicenseCredentials = drivingLicenseCredentials;
+    }
+
     public AdminUserDTO() {
         // Empty constructor needed for Jackson.
     }

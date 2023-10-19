@@ -32,6 +32,10 @@ export class RegisterComponent implements AfterViewInit {
     email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+    // Adding the new fields
+    name: ['', [Validators.required, Validators.maxLength(50)]],
+    phoneNumber: ['', Validators.maxLength(50)],
+    drivingLicenseCredentials: ['', [Validators.required, Validators.maxLength(255)]],
   });
 
   constructor(private registerService: RegisterService, private fb: FormBuilder) {}
@@ -54,8 +58,11 @@ export class RegisterComponent implements AfterViewInit {
     } else {
       const login = this.registerForm.get(['login'])!.value;
       const email = this.registerForm.get(['email'])!.value;
+      const name = this.registerForm.get(['name'])!.value; // New field
+      const phoneNumber = this.registerForm.get(['phoneNumber'])!.value; // New field
+      const drivingLicenseCredentials = this.registerForm.get(['drivingLicenseCredentials'])!.value; // New field
       this.registerService
-        .save({ login, email, password, langKey: 'en' })
+        .save({ login, email, password, langKey: 'en', name, phoneNumber, drivingLicenseCredentials }) // Added new fields
         .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
     }
   }

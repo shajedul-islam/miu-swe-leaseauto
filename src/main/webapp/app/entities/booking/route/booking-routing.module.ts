@@ -33,6 +33,14 @@ const bookingRoute: Routes = [
     canActivate: [UserRouteAccessService],
   },
   {
+    path: 'new/:vehicleId', // <-- Added this new route for booking with vehicle ID
+    component: BookingUpdateComponent,
+    resolve: {
+      booking: BookingRoutingResolveService,
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
     path: ':id/edit',
     component: BookingUpdateComponent,
     resolve: {

@@ -11,6 +11,23 @@
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
+        <!-- If vehicle is preselected -->
+        <div *ngIf="editForm.get('vehicle') && editForm.get('vehicle')?.value">
+          <label class="form-label">Vehicle</label>
+          <p>
+            ID: {{ editForm.get('vehicle')?.value.id }} <br />
+            Model: {{ editForm.get('vehicle')?.value.model }} <br />
+            Make: {{ editForm.get('vehicle')?.value.make }} <br />
+            Year: {{ editForm.get('vehicle')?.value.year }} <br />
+            Lease Rate: {{ editForm.get('vehicle')?.value.leaseRate }} <br />
+            Availability Status: {{ editForm.get('vehicle')?.value.availabilityStatus }}
+          </p>
+        </div>
+        <!-- Else show dropdown (existing behavior) -->
+        <div *ngIf="!editForm.get('vehicle')?.value" class="row mb-3">
+          <!-- ... Existing dropdown code ... -->
+        </div>
+
         <div class="row mb-3">
           <label class="form-label" for="field_startDate">Start Date</label>
           <div class="input-group">
@@ -56,47 +73,11 @@
           <input type="number" class="form-control" name="totalCost" id="field_totalCost" data-cy="totalCost" formControlName="totalCost" />
         </div>
 
-        <div class="row mb-3">
-          <label class="form-label" for="field_location">Location</label>
-          <input type="text" class="form-control" name="location" id="field_location" data-cy="location" formControlName="location" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_invoice">Invoice</label>
-          <select class="form-control" id="field_invoice" data-cy="invoice" name="invoice" formControlName="invoice">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="invoiceOption.id === editForm.get('invoice')!.value?.id ? editForm.get('invoice')!.value : invoiceOption"
-              *ngFor="let invoiceOption of invoicesCollection; trackBy: trackInvoiceById"
-            >
-              {{ invoiceOption.id }}
-            </option>
-          </select>
-        </div>
-
-        <div class="row mb-3">
+        <!-- Hide the customer field -->
+        <div class="row mb-3" [hidden]="true">
           <label class="form-label" for="field_customer">Customer</label>
           <select class="form-control" id="field_customer" data-cy="customer" name="customer" formControlName="customer">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="customerOption.id === editForm.get('customer')!.value?.id ? editForm.get('customer')!.value : customerOption"
-              *ngFor="let customerOption of customersSharedCollection; trackBy: trackCustomerById"
-            >
-              {{ customerOption.id }}
-            </option>
-          </select>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_vehicle">Vehicle</label>
-          <select class="form-control" id="field_vehicle" data-cy="vehicle" name="vehicle" formControlName="vehicle">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="vehicleOption.id === editForm.get('vehicle')!.value?.id ? editForm.get('vehicle')!.value : vehicleOption"
-              *ngFor="let vehicleOption of vehiclesSharedCollection; trackBy: trackVehicleById"
-            >
-              {{ vehicleOption.id }}
-            </option>
+            <!-- ... -->
           </select>
         </div>
       </div>

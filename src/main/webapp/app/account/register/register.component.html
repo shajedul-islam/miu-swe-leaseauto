@@ -20,6 +20,74 @@
   <div class="d-flex justify-content-center">
     <div class="col-md-8">
       <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
+        <!-- Name Input Field -->
+        <div class="mb-3">
+          <label class="form-label" for="name">Full Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Your full name"
+            formControlName="name"
+            data-cy="name"
+          />
+
+          <div *ngIf="registerForm.get('name')!.invalid && (registerForm.get('name')!.dirty || registerForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="registerForm.get('name')?.errors?.required"> Your name is required. </small>
+          </div>
+        </div>
+
+        <!-- PhoneNumber Input Field -->
+        <div class="mb-3">
+          <label class="form-label" for="phoneNumber">Phone Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="phoneNumber"
+            name="phoneNumber"
+            placeholder="Your phone number"
+            formControlName="phoneNumber"
+            data-cy="phoneNumber"
+          />
+
+          <div
+            *ngIf="
+              registerForm.get('phoneNumber')!.invalid &&
+              (registerForm.get('phoneNumber')!.dirty || registerForm.get('phoneNumber')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="registerForm.get('phoneNumber')?.errors?.required">
+              Your phone number is required.
+            </small>
+          </div>
+        </div>
+
+        <!-- Driving License Credentials Input Field -->
+        <div class="mb-3">
+          <label class="form-label" for="drivingLicenseCredentials">Driving License Credentials</label>
+          <input
+            type="text"
+            class="form-control"
+            id="drivingLicenseCredentials"
+            name="drivingLicenseCredentials"
+            placeholder="Your driving license credentials"
+            formControlName="drivingLicenseCredentials"
+            data-cy="drivingLicenseCredentials"
+          />
+
+          <div
+            *ngIf="
+              registerForm.get('drivingLicenseCredentials')!.invalid &&
+              (registerForm.get('drivingLicenseCredentials')!.dirty || registerForm.get('drivingLicenseCredentials')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="registerForm.get('drivingLicenseCredentials')?.errors?.required">
+              Your driving license credentials are required.
+            </small>
+          </div>
+        </div>
+
         <div class="mb-3">
           <label class="form-label" for="login">Username</label>
           <input

@@ -78,6 +78,39 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_date")
     private Instant resetDate = null;
 
+    @Transient
+    private String name;
+
+    @Transient
+    private String phoneNumber;
+
+    @Transient
+    private String drivingLicenseCredentials;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getDrivingLicenseCredentials() {
+        return drivingLicenseCredentials;
+    }
+
+    public void setDrivingLicenseCredentials(String drivingLicenseCredentials) {
+        this.drivingLicenseCredentials = drivingLicenseCredentials;
+    }
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(

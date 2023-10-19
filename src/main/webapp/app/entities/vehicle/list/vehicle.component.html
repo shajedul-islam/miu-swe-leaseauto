@@ -63,6 +63,12 @@
                 <span class="d-none d-md-inline">View</span>
               </button>
 
+              <!-- Add a Book button beside each car -->
+              <button type="submit" [routerLink]="['/booking/new', vehicle.id]" class="btn btn-success btn-sm" data-cy="entityBookButton">
+                <fa-icon icon="book"></fa-icon>
+                <span class="d-none d-md-inline">Book</span>
+              </button>
+
               <button
                 *jhiHasAnyAuthority="['ROLE_ADMIN']"
                 type="submit"
