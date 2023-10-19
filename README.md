@@ -31,7 +31,7 @@ Before you can run this project, ensure that the following dependencies are inst
 1. Navigate to the project root directory in your terminal.
 2. Execute the following command to start the Spring Boot backend:
    ```bash
-   ./mvnw spring-boot:run
+   mvn spring-boot:run
    ```
 
 ### Running Frontend
